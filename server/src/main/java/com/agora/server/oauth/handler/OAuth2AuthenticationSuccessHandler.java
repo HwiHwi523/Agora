@@ -1,5 +1,6 @@
-package com.agora.server.user.oauth;
+package com.agora.server.oauth.handler;
 
+import com.agora.server.oauth.principal.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;

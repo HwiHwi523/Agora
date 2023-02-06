@@ -1,4 +1,4 @@
-package com.agora.server.auth.repository;
+package com.agora.server.oauth.repository;
 
 import com.agora.server.auth.util.CookieUtils;
 import com.nimbusds.oauth2.sdk.util.StringUtils;

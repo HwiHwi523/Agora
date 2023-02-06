@@ -2,11 +2,11 @@ package com.agora.server.config;
 
 import com.agora.server.auth.filter.JwtAuthenticationFilter;
 import com.agora.server.auth.provider.JwtTokenProvider;
-import com.agora.server.auth.repository.HttpCookieOAuth2AuthorizationRequestRepository;
+import com.agora.server.oauth.repository.HttpCookieOAuth2AuthorizationRequestRepository;
 import com.agora.server.config.filter.CorsFilterConfig;
-import com.agora.server.user.oauth.OAuth2AuthenticationFailureHandler;
-import com.agora.server.user.oauth.OAuth2AuthenticationSuccessHandler;
-import com.agora.server.user.service.PrincipalOauth2UserService;
+import com.agora.server.oauth.handler.OAuth2AuthenticationFailureHandler;
+import com.agora.server.oauth.handler.OAuth2AuthenticationSuccessHandler;
+import com.agora.server.oauth.service.PrincipalOauth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

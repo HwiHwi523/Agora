@@ -1,6 +1,5 @@
-package com.agora.server.user.oauth;
+package com.agora.server.oauth.principal;
 
-import com.agora.server.user.dto.OAuthUserPrincipalDto;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;

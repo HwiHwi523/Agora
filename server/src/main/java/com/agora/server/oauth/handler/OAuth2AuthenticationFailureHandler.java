@@ -1,4 +1,4 @@
-package com.agora.server.user.oauth;
+package com.agora.server.oauth.handler;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.AuthenticationException;

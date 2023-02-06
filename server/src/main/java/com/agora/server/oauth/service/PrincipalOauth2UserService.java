@@ -1,10 +1,10 @@
-package com.agora.server.user.service;
+package com.agora.server.oauth.service;
 
 import com.agora.server.user.domain.User;
-import com.agora.server.user.dto.OAuthUserPrincipalDto;
-import com.agora.server.user.oauth.PrincipalDetails;
-import com.agora.server.user.oauth.dto.OAuth2UserInfoFactory;
-import com.agora.server.user.oauth.dto.OauthUserInfo;
+import com.agora.server.oauth.principal.OAuthUserPrincipalDto;
+import com.agora.server.oauth.principal.PrincipalDetails;
+import com.agora.server.oauth.dto.OAuth2UserInfoFactory;
+import com.agora.server.oauth.dto.OauthUserInfo;
 import com.agora.server.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

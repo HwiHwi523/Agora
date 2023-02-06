@@ -1,4 +1,4 @@
-package com.agora.server.user.dto;
+package com.agora.server.oauth.principal;
 
 import com.agora.server.user.controller.dto.SocialType;
 import lombok.Getter;

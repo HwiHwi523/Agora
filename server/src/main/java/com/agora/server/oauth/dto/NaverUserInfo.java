@@ -1,4 +1,4 @@
-package com.agora.server.user.oauth.dto;
+package com.agora.server.oauth.dto;
 
 import com.agora.server.user.controller.dto.SocialType;
 

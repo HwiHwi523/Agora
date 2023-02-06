@@ -1,4 +1,4 @@
-package com.agora.server.user.oauth.dto;
+package com.agora.server.oauth.dto;
 
 import com.agora.server.auth.exception.OAuth2AuthenticationProcessingException;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
