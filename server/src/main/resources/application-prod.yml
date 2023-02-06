@@ -5,6 +5,15 @@ spring:
   redis:
     host: 127.0.0.1
     port: 6379
+  gcp:
+    config:
+      file: gcp-account-file.json
+    project:
+      id: agora-374311
+    bucket:
+      id: agora_real1
+    dir:
+      name: img
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
