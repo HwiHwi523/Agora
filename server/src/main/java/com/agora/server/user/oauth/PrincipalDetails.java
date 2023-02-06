@@ -1,13 +1,10 @@
 package com.agora.server.user.oauth;
 
-import com.agora.server.user.domain.User;
 import com.agora.server.user.dto.OAuthUserPrincipalDto;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
-import java.nio.file.attribute.UserPrincipal;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 

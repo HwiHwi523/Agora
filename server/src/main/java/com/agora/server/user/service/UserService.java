@@ -1,23 +1,24 @@
 package com.agora.server.user.service;
 
 import com.agora.server.auth.domain.RefreshToken;
+import com.agora.server.auth.dto.AuthenticatedUserInfo;
 import com.agora.server.auth.provider.JwtTokenProvider;
 import com.agora.server.auth.repository.AuthRepository;
 import com.agora.server.category.domain.Category;
 import com.agora.server.category.repository.CategoryRepository;
 import com.agora.server.user.controller.dto.SocialType;
 import com.agora.server.user.domain.User;
-import com.agora.server.auth.dto.AuthenticatedUserInfo;
 import com.agora.server.user.dto.LoginDTO;
 import com.agora.server.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 @Service

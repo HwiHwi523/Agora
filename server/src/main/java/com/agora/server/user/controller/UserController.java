@@ -1,6 +1,5 @@
 package com.agora.server.user.controller;
 
-import com.agora.server.auth.domain.RefreshToken;
 import com.agora.server.auth.provider.JwtTokenProvider;
 import com.agora.server.auth.repository.AuthRepository;
 import com.agora.server.category.domain.Category;
@@ -22,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
