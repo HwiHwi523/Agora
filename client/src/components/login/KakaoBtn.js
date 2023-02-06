@@ -1,7 +1,7 @@
 import kakaoLogo from "../../assets/login/kakao_login_large_narrow.png"
 
 function KakaoBtn() {
-    const KAKAO_AUTH_URL = `${process.env.REACT_APP_SERVER_BASE_URL}/oauth2/authorization/kakao`
+    const KAKAO_AUTH_URL = `${process.env.REACT_APP_SERVER_BASE_URL}/oauth/kakao`
 
     return (
         <div>
