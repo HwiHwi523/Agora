@@ -40,34 +40,26 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
     }
 
     private OAuth2User processOAuth2User(OAuth2UserRequest userRequest, OAuth2User user) throws Exception {
-        System.out.println("--user attribute--" + user.getAttributes());
-
         OauthUserInfo oAuth2UserInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(
                 userRequest,
                 user.getAttributes()
         );
-        System.out.println(oAuth2UserInfo.getName());
 
         User findUser;
-
         findUser = userRepository.checkDuplicateUser(oAuth2UserInfo.getProviderId(), oAuth2UserInfo.getProvider());
 
-        Map<String, Object> responseData = new HashMap<>();
         if (findUser != null) {
-            // 존재하면 고
-//            return PrincipalDetails.create(findUser, user.getAttributes());
-            throw  new Exception("jkh");
-
+            // 존재하면 login
+            return PrincipalDetails.create(
+                    new OAuthUserPrincipalDto(
+                            findUser.getUser_id().toString(),
+                            oAuth2UserInfo.getProvider(),
+                            oAuth2UserInfo.getName(),
+                            oAuth2UserInfo.getProfile()
+                    )
+            );
         } else {
             // 존재하지 않으면 회원가입
-            log.info("------- user -----" + oAuth2UserInfo.getName());
-            responseData.put("id", oAuth2UserInfo.getProviderId());
-            responseData.put("type", oAuth2UserInfo.getProvider());
-            responseData.put("nickname", oAuth2UserInfo.getName());
-            responseData.put("profile", oAuth2UserInfo.getProfile());
-//            findUser = registerNewUser(userRequest, oAuth2UserInfo);
-
-
             OAuthUserPrincipalDto oAuthUserPrincipalDto = new OAuthUserPrincipalDto(
                     null,
                     oAuth2UserInfo.getProvider(),
@@ -76,30 +68,5 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
             );
             return PrincipalDetails.create(oAuthUserPrincipalDto);
         }
-
-//        if (findUser == null) {
-//            log.info("user is null");
-//            User responseUser = User.createOAuthUser(oAuth2UserInfo.getProvider(), oAuth2UserInfo.getProviderId(),
-//                    oAuth2UserInfo.getName(), oAuth2UserInfo.getProfile());
-//            log.info("user info" + responseUser.getUser_id());
-//            return new PrincipalDetails(responseUser, responseData);
-//        } else {
-//            responseData.put("id", oAuth2UserInfo.getProviderId());
-//            responseData.put("type", oAuth2UserInfo.getProvider());
-//            responseData.put("email", oAuth2UserInfo.getEmail());
-//            responseData.put("nickname", oAuth2UserInfo.getName());
-//            responseData.put("profile", oAuth2UserInfo.getProfile());
-//            return new PrincipalDetails(findUser, responseData);
-//        }
     }
-
-    private User registerNewUser(OAuth2UserRequest userRequest, OauthUserInfo oAuth2UserInfo) {
-        return User.createOAuthUser(
-                SocialType.valueOf(userRequest.getClientRegistration().getClientName().toUpperCase()),
-                oAuth2UserInfo.getProviderId(),
-                oAuth2UserInfo.getName(),
-                oAuth2UserInfo.getProfile()
-        );
-    }
-
 }

@@ -10,11 +10,11 @@ public class OAuth2UserInfoFactory {
     public static OauthUserInfo getOAuth2UserInfo(OAuth2UserRequest userRequest, Map<String, Object> attributes) {
         System.out.println("is google " + userRequest.getClientRegistration().getClientName());
 
-        if (userRequest.getClientRegistration().getClientName().toUpperCase().equals("GOOGLE")) {
+        if (userRequest.getClientRegistration().getClientName().equalsIgnoreCase("GOOGLE")) {
             return new GoogleUserInfo(attributes);
-        } else if (userRequest.getClientRegistration().getClientName().equals("Naver")) {
+        } else if (userRequest.getClientRegistration().getClientName().equalsIgnoreCase("NAVER")) {
             return new NaverUserInfo(attributes);
-        } else if (userRequest.getClientRegistration().getClientName().equals("Kakao")) {
+        } else if (userRequest.getClientRegistration().getClientName().equalsIgnoreCase("KAKAO")) {
             return new KakaoUserInfo(attributes);
         } else {
             throw new OAuth2AuthenticationProcessingException("Unsupported Login Type : " + userRequest.getClientRegistration().getRegistrationId());

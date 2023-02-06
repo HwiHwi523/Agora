@@ -44,6 +44,5 @@ public class OAuth2AuthenticationSuccessHandler implements AuthenticationSuccess
                     .encode(StandardCharsets.UTF_8)
                     .toUriString());
         }
-
     }
 }

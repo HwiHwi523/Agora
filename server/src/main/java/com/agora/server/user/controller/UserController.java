@@ -92,7 +92,8 @@ public class UserController {
      * @throws NoSuchFieldException
      */
     @PostMapping("login")
-    public ResponseEntity<ResponseDTO> login(@RequestBody LoginRequestDto loginRequestDto) throws NoSuchFieldException {
+    public ResponseEntity<ResponseDTO> login(
+            @RequestBody LoginRequestDto loginRequestDto) throws NoSuchFieldException {
         ResponseDTO responseDTO = new ResponseDTO();
 
         Optional<User> Ouser = userRepository.findById(loginRequestDto.getUser_id());
@@ -102,7 +103,6 @@ public class UserController {
             User user = Ouser.get();
             String acessToken = tokenProvider.createAccessToken(user.getUser_id(), user.getUser_social_type());
             String refreshToken = tokenProvider.createRefreshToken();
-            //authRepository.save(RefreshToken.createRefreshToken(user.getUser_id(), refreshToken));
             userService.saveRefreshToken(user.getUser_id(), refreshToken);
 
             LoginResponseDto loginResponseDto = new LoginResponseDto();
