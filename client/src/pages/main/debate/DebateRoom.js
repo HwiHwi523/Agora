@@ -16,7 +16,7 @@ import customAxios from "utils/customAxios";
 
 // recoil
 import { useRecoilState, useRecoilValue } from "recoil";
-import { isStartState, leftCardListState, rightCardListState, leftUserListState, rightUserListState, readyUserListState, phaseNumberState, phaseDetailState, voteLeftResultState, voteRightResultState, timerState, counterState } from "stores/DebateStates";
+import { isStartState, leftCardListState, rightCardListState, leftUserListState, rightUserListState, readyUserListState, phaseNumberState, phaseDetailState, voteLeftResultState, voteRightResultState, timerState, counterState, firstCardFileState, secondCardFileState } from "stores/DebateStates";
 import { userInfoState } from "stores/userInfoState";
 import { debateUserRoleState } from "stores/joinDebateRoomStates";
 import getToken from "components/debateroom/GetToken";
@@ -56,11 +56,24 @@ function DebateRoom() {
   const [listening, setListening] = useState(false);
   const [meventSource, msetEventSource] = useState(undefined);
 
-  // navigate
-  const navigate = useNavigate();
+  // 이미지 파일 State
+  const img1File = useRecoilValue(firstCardFileState);
+  const img2File = useRecoilValue(secondCardFileState);
   
   // 임시 데이터
   const [nickname, setNickname] = useState("anonymous")
+
+  // Post Flag
+  const [submitPicsPostFlag, setSubmitPicsPostFlag] = useState(false);
+  const [leavePostFlag, setLeavePostFlag] = useState(false);
+
+  const navigate = useNavigate();
+  
+  // useEffect(() => {
+  //  getToken(roomId).then(token => {
+  //   setRoomToken(token);
+  //  })
+  // }, [])
 
   useEffect(() => {
     console.log(roomToken)
@@ -146,6 +159,9 @@ function DebateRoom() {
           setPhaseNum(data.roomPhase);
           setPhaseDetail(data.roomPhaseDetail);
           setTimer(10);         
+
+          // Post Flag를 True로 바꿔 서버로 근거자료 전송
+          setSubmitPicsPostFlag(true);
         };
         if (data.event === "startSpeakPhase") {
           setPhaseNum(data.roomPhase);
@@ -214,12 +230,12 @@ function DebateRoom() {
     };
   }, [])
 
-  const [postFlag, setPostFlag] = useState(false);
+  // 토론방을 떠날 때 실행될 Post
   const handleBeforeUnload = () => {
-    setPostFlag(true);
+    setLeavePostFlag(true);
   };
   useEffect(() => {
-    if (postFlag) {
+    if (leavePostFlag) {
       const axios = customAxios();
         axios
           .post('v2/room/leave', {
@@ -232,9 +248,38 @@ function DebateRoom() {
           .catch(error => {
             console.log(error)
           })
-      setPostFlag(false);
+      setLeavePostFlag(false);
     }
-  }, [postFlag]);
+  }, [leavePostFlag]);
+
+  useEffect(() => {
+    if (submitPicsPostFlag) {
+      // FormData 생성
+      const formData = new FormData();
+      formData.append("roomId", roomId);
+      formData.append("userNickname", nickname);
+      if (img1File instanceof File) {  // 첫 번째 파일 데이터 삽입
+        formData.append("files", img1File);
+      }
+      if (img2File instanceof File) {  // 두 번째 파일 데이터 삽입
+        formData.append("files", img2File);
+      }
+      
+      customAxios().post("/v2/file/save/card",
+        formData, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          },
+        }).then(({ data }) => {
+        console.log(data);
+      }).catch(error => {
+        console.log(error);
+      });
+      
+      // 다시 False로 변경해 다시 실행될 수 있도록 설정
+      setSubmitPicsPostFlag(false);
+    }
+  }, [submitPicsPostFlag]);
 
   // temp button to control session
   const handleStart = () => {
